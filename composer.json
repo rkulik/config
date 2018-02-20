@@ -1,0 +1,27 @@
+{
+  "name": "rkulik/config",
+  "description": "Simple configuration file loader",
+  "keywords": [
+    "rkulik",
+    "php",
+    "config"
+  ],
+  "type": "library",
+  "homepage": "https://github.com/rkulik/config",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "René Kulik",
+      "email": "rene@kulik.io",
+      "homepage": "http://www.kulik.io/"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Rkulik\\Config\\": "src"
+    }
+  }
+}
