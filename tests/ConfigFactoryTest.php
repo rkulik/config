@@ -2,7 +2,6 @@
 
 namespace Rkulik\Config\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Rkulik\Config\Config;
 use Rkulik\Config\ConfigFactory;
 use Rkulik\Config\FileParser\FileParserInterface;
@@ -13,10 +12,8 @@ use Rkulik\Config\FileParser\FileParserInterface;
  *
  * @author René Kulik <rene@kulik.io>
  */
-class ConfigFactoryTest extends TestCase
+class ConfigFactoryTest extends BaseTestCase
 {
-    private const MOCK_DIRECTORY = __DIR__ . DIRECTORY_SEPARATOR . 'mocks' . DIRECTORY_SEPARATOR;
-
     /**
      * @var ConfigFactory
      */
@@ -45,7 +42,7 @@ class ConfigFactoryTest extends TestCase
      */
     public function testMakeFailsByClassNotFound(): void
     {
-        $this->factory->make(self::MOCK_DIRECTORY . 'unsupportedExtension.json');
+        $this->factory->make($this->getMockFilePath('unsupportedExtension.json'));
     }
 
     /**
@@ -54,7 +51,7 @@ class ConfigFactoryTest extends TestCase
      */
     public function testMakeReturnsConfig(): void
     {
-        $this->assertInstanceOf(Config::class, $this->factory->make(self::MOCK_DIRECTORY . 'validConfig.php'));
+        $this->assertInstanceOf(Config::class, $this->factory->make($this->getMockFilePath('validConfig.php')));
     }
 
     /**
@@ -67,7 +64,7 @@ class ConfigFactoryTest extends TestCase
         /** @var FileParserInterface|\PHPUnit_Framework_MockObject_MockObject $parser */
         $parser = $this->createMock(FileParserInterface::class);
 
-        $file = self::MOCK_DIRECTORY . 'validConfig.php';
+        $file = $this->getMockFilePath('validConfig.php');
         $data = require $file;
 
         $parser->expects($this->once())
