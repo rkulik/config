@@ -31,5 +31,8 @@
     "classmap": [
       "tests/"
     ]
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   }
 }
