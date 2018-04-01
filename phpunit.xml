@@ -3,7 +3,7 @@
          backupGlobals="false"
          backupStaticAttributes="false"
          colors="true"
-         verbose="false"
+         verbose="true"
          forceCoversAnnotation="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
