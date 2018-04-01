@@ -1,4 +1,4 @@
-# view
+# config
 
 Simple configuration file loader.
 
