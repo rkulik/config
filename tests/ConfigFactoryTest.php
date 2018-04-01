@@ -42,7 +42,7 @@ class ConfigFactoryTest extends BaseTestCase
      */
     public function testMakeFailsByClassNotFound(): void
     {
-        $this->factory->make($this->getMockFilePath('unsupportedExtension.json'));
+        $this->factory->make($this->getMockFilePath(self::FILE_WITH_UNSUPPORTED_EXTENSION));
     }
 
     /**
@@ -51,7 +51,7 @@ class ConfigFactoryTest extends BaseTestCase
      */
     public function testMakeReturnsConfig(): void
     {
-        $this->assertInstanceOf(Config::class, $this->factory->make($this->getMockFilePath('validConfig.php')));
+        $this->assertInstanceOf(Config::class, $this->factory->make($this->getMockFilePath(self::FILE_WHICH_IS_VALID)));
     }
 
     /**
@@ -64,7 +64,7 @@ class ConfigFactoryTest extends BaseTestCase
         /** @var FileParserInterface|\PHPUnit_Framework_MockObject_MockObject $parser */
         $parser = $this->createMock(FileParserInterface::class);
 
-        $file = $this->getMockFilePath('validConfig.php');
+        $file = $this->getMockFilePath(self::FILE_WHICH_IS_VALID);
         $data = require $file;
 
         $parser->expects($this->once())

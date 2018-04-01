@@ -41,7 +41,7 @@ class PhpTest extends BaseTestCase
      */
     public function testParseFailsByParse(): void
     {
-        $this->php->parse($this->getMockFilePath('throwsException.php'));
+        $this->php->parse($this->getMockFilePath(self::FILE_WHICH_THROWS_AN_EXCEPTION));
     }
 
     /**
@@ -49,7 +49,7 @@ class PhpTest extends BaseTestCase
      */
     public function testParseFailsByUnsupportedFormat(): void
     {
-        $this->php->parse($this->getMockFilePath('unsupportedFormat.php'));
+        $this->php->parse($this->getMockFilePath(self::FILE_WITH_UNSUPPORTED_FORMAT));
     }
 
     /**
@@ -59,7 +59,7 @@ class PhpTest extends BaseTestCase
      */
     public function testParseReturnsArray(): void
     {
-        $file = $this->getMockFilePath('validConfig.php');
+        $file = $this->getMockFilePath(self::FILE_WHICH_IS_VALID);
         $data = require $file;
 
         $response = $this->php->parse($file);

@@ -2,7 +2,6 @@
 
 namespace Rkulik\Config\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Rkulik\Config\Config;
 
 /**
@@ -11,7 +10,7 @@ use Rkulik\Config\Config;
  *
  * @author René Kulik <rene@kulik.io>
  */
-class ConfigTest extends TestCase
+class ConfigTest extends BaseTestCase
 {
     /**
      * @var Config
