@@ -2,18 +2,16 @@
 
 namespace Rkulik\Config\FileParser;
 
-use Exception;
 use Rkulik\Config\Exceptions\FileNotFoundException;
 use Rkulik\Config\Exceptions\ParseException;
-use Rkulik\Config\Exceptions\UnsupportedFormatException;
 
 /**
- * Class Php
+ * Class Json
  * @package Rkulik\Config\FileParser
  *
  * @author René Kulik <rene@kulik.io>
  */
-class Php implements FileParserInterface
+class Json implements FileParserInterface
 {
     /**
      * {@inheritdoc}
@@ -24,14 +22,14 @@ class Php implements FileParserInterface
             throw new FileNotFoundException(\sprintf('File "%s" not found', $file));
         }
 
-        try {
-            $data = require $file;
-        } catch (Exception $exception) {
-            throw new ParseException(\sprintf('Error while parsing "%s"', $file));
-        }
+        $data = \json_decode(\file_get_contents($file), true);
 
-        if (!\is_array($data)) {
-            throw new UnsupportedFormatException(\sprintf('File "%s" does not return an array', $file));
+        if (\json_last_error() !== JSON_ERROR_NONE) {
+            throw new ParseException(
+                \function_exists('json_last_error_msg')
+                    ? \json_last_error_msg()
+                    : \sprintf('Error while parsing "%s"', $file)
+            );
         }
 
         return $data;

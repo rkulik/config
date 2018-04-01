@@ -13,10 +13,18 @@ use PHPUnit\Framework\TestCase;
 abstract class BaseTestCase extends TestCase
 {
     private const MOCK_DIRECTORY = __DIR__ . DIRECTORY_SEPARATOR . 'mocks';
-    protected const FILE_WHICH_IS_VALID = 'valid.php';
-    protected const FILE_WHICH_THROWS_AN_EXCEPTION = 'throwsException.php';
-    protected const FILE_WITH_UNSUPPORTED_EXTENSION = 'unsupportedExtension.json';
-    protected const FILE_WITH_UNSUPPORTED_FORMAT = 'unsupportedFormat.php';
+
+    // General files
+    protected const FILE_WITH_UNSUPPORTED_EXTENSION = 'unsupportedExtension.txt';
+
+    // PHP files
+    protected const PHP_FILE_WHICH_IS_VALID = 'valid.php';
+    protected const PHP_FILE_WHICH_THROWS_AN_EXCEPTION = 'throwsException.php';
+    protected const PHP_FILE_WITH_UNSUPPORTED_FORMAT = 'unsupportedFormat.php';
+
+    // JSON files
+    protected const JSON_FILE_WHICH_IS_VALID = 'valid.json';
+    protected const JSON_FILE_WITH_JSON_SYNTAX_ERROR = 'syntaxError.json';
 
     /**
      * @param string $file

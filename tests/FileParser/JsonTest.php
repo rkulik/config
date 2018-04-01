@@ -2,21 +2,21 @@
 
 namespace Rkulik\Config\Tests\FileParser;
 
-use Rkulik\Config\FileParser\Php;
+use Rkulik\Config\FileParser\Json;
 use Rkulik\Config\Tests\BaseTestCase;
 
 /**
- * Class PhpTest
+ * Class JsonTest
  * @package Rkulik\Config\Tests\FileParser
  *
  * @author René Kulik <rene@kulik.io>
  */
-class PhpTest extends BaseTestCase
+class JsonTest extends BaseTestCase
 {
     /**
-     * @var Php
+     * @var Json
      */
-    private $php;
+    private $json;
 
     /**
      *
@@ -25,7 +25,7 @@ class PhpTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->php = new Php();
+        $this->json = new Json();
     }
 
     /**
@@ -33,7 +33,7 @@ class PhpTest extends BaseTestCase
      */
     public function testParseFailsByFileNotFound(): void
     {
-        $this->php->parse('nonExistingFile');
+        $this->json->parse('nonExistingFile');
     }
 
     /**
@@ -41,28 +41,19 @@ class PhpTest extends BaseTestCase
      */
     public function testParseFailsByParse(): void
     {
-        $this->php->parse($this->getMockFilePath(self::PHP_FILE_WHICH_THROWS_AN_EXCEPTION));
-    }
-
-    /**
-     * @expectedException \Rkulik\Config\Exceptions\UnsupportedFormatException
-     */
-    public function testParseFailsByUnsupportedFormat(): void
-    {
-        $this->php->parse($this->getMockFilePath(self::PHP_FILE_WITH_UNSUPPORTED_FORMAT));
+        $this->json->parse($this->getMockFilePath(self::JSON_FILE_WITH_JSON_SYNTAX_ERROR));
     }
 
     /**
      * @throws \Rkulik\Config\Exceptions\FileNotFoundException
      * @throws \Rkulik\Config\Exceptions\ParseException
-     * @throws \Rkulik\Config\Exceptions\UnsupportedFormatException
      */
     public function testParseReturnsArray(): void
     {
-        $file = $this->getMockFilePath(self::PHP_FILE_WHICH_IS_VALID);
-        $data = require $file;
+        $file = $this->getMockFilePath(self::JSON_FILE_WHICH_IS_VALID);
+        $data = \json_decode(\file_get_contents($file), true);
 
-        $response = $this->php->parse($file);
+        $response = $this->json->parse($file);
 
         $this->assertInternalType('array', $response);
         $this->assertSame($data, $response);

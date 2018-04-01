@@ -51,7 +51,7 @@ class ConfigFactoryTest extends BaseTestCase
      */
     public function testMakeReturnsConfig(): void
     {
-        $this->assertInstanceOf(Config::class, $this->factory->make($this->getMockFilePath(self::FILE_WHICH_IS_VALID)));
+        $this->assertInstanceOf(Config::class, $this->factory->make($this->getMockFilePath(self::PHP_FILE_WHICH_IS_VALID)));
     }
 
     /**
@@ -64,7 +64,7 @@ class ConfigFactoryTest extends BaseTestCase
         /** @var FileParserInterface|\PHPUnit_Framework_MockObject_MockObject $parser */
         $parser = $this->createMock(FileParserInterface::class);
 
-        $file = $this->getMockFilePath(self::FILE_WHICH_IS_VALID);
+        $file = $this->getMockFilePath(self::PHP_FILE_WHICH_IS_VALID);
         $data = require $file;
 
         $parser->expects($this->once())
