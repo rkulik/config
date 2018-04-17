@@ -26,7 +26,7 @@ $ composer require rkulik/config
 
 ## Usage
 
-### Initialize basic configuration
+### Instantiate basic configuration
 
 ``` php
 <?php
@@ -50,7 +50,19 @@ $config = $configFactory->make('config.php');
 echo $config->get('hello'); // world
 ```
 
-### Initialize configuration using custom parser
+### Instantiate configuration using custom parser
+
+For special requirements, such as working with unsupported types of configuration files, using a custom parser is the
+suggested way to go.
+
+``` php
+<?php
+// config.php
+
+return [
+    'hello' => 'world',
+];
+```
 
 ``` php
 <?php
@@ -89,6 +101,34 @@ $customParser = new CustomParser();
 $config = $configFactory->fileParser($customParser)->make('config.php');
 
 echo $config->get('hello'); // dlrow
+```
+
+### Using "dot" notation
+
+This package supports "dot" notation to perform CRUD operations on configuration data.
+
+``` php
+<?php
+// config.php
+
+return [
+    'hello' => [
+        'beautiful' => 'world',
+    ],
+];
+```
+
+``` php
+<?php
+// index.php
+
+require 'vendor/autoload.php';
+
+$configFactory = new \Rkulik\Config\ConfigFactory();
+
+$config = $configFactory->make('config.php');
+
+echo $config->get('hello.beautiful'); // world
 ```
 
 ## Testing
