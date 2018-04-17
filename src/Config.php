@@ -30,7 +30,21 @@ class Config
      */
     public function set(string $key, $value = null): void
     {
-        $this->data[$key] = $value;
+        $data = &$this->data;
+
+        $keys = \explode('.', $key);
+
+        while (\count($keys) > 1) {
+            $key = \array_shift($keys);
+
+            if (!isset($data[$key])) {
+                $data[$key] = [];
+            }
+
+            $data = &$data[$key];
+        }
+
+        $data[\array_shift($keys)] = $value;
     }
 
     /**
@@ -40,7 +54,17 @@ class Config
      */
     public function get(string $key, $default = null)
     {
-        return $this->data[$key] ?? $default;
+        $data = $this->data;
+
+        foreach (\explode('.', $key) as $segment) {
+            if (!isset($data[$segment])) {
+                return $default;
+            }
+
+            $data = $data[$segment];
+        }
+
+        return $data;
     }
 
     /**
@@ -49,7 +73,17 @@ class Config
      */
     public function has(string $key): bool
     {
-        return isset($this->data[$key]);
+        $data = $this->data;
+
+        foreach (\explode('.', $key) as $segment) {
+            if (!isset($data[$segment])) {
+                return false;
+            }
+
+            $data = $data[$segment];
+        }
+
+        return true;
     }
 
     /**
@@ -57,7 +91,21 @@ class Config
      */
     public function unset(string $key): void
     {
-        unset($this->data[$key]);
+        $data = &$this->data;
+
+        $keys = \explode('.', $key);
+
+        while (\count($keys) > 1) {
+            $key = \array_shift($keys);
+
+            if (!isset($data[$key])) {
+                return;
+            }
+
+            $data = &$data[$key];
+        }
+
+        unset($data[\array_shift($keys)]);
     }
 
     /**
