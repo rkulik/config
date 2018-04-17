@@ -72,6 +72,6 @@ class ConfigFactoryTest extends BaseTestCase
             ->with($this->equalTo($file))
             ->will($this->returnValue($data));
 
-        $this->assertInstanceOf(Config::class, $this->factory->fileParser($parser)->make($file));
+        $this->assertInstanceOf(Config::class, $this->factory->make($file, $parser));
     }
 }

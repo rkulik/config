@@ -17,38 +17,20 @@ class ConfigFactory
     private const PARSER_NAMESPACE = 'Rkulik\Config\FileParser\\';
 
     /**
-     * @var FileParserInterface
-     */
-    private $fileParser;
-
-    /**
-     * @param FileParserInterface $fileParser
-     * @return ConfigFactory
-     */
-    public function fileParser(FileParserInterface $fileParser): ConfigFactory
-    {
-        $this->fileParser = $fileParser;
-
-        return $this;
-    }
-
-    /**
      * @param string $file
+     * @param FileParserInterface|null $fileParser
      * @return Config
      * @throws ClassNotFoundException
      * @throws FileNotFoundException
      */
-    public function make(string $file): Config
+    public function make(string $file, FileParserInterface $fileParser = null): Config
     {
         if (!\is_file($file)) {
             throw new FileNotFoundException(\sprintf('File "%s" not found', $file));
         }
 
-        if ($this->fileParser) {
-            $config = new Config($this->fileParser->parse($file));
-            $this->resetFileParser();
-
-            return $config;
+        if ($fileParser) {
+            return new Config($fileParser->parse($file));
         }
 
         $className = self::PARSER_NAMESPACE . \ucfirst(\pathinfo($file, PATHINFO_EXTENSION));
@@ -61,13 +43,5 @@ class ConfigFactory
         $fileParser = new $className();
 
         return new Config($fileParser->parse($file));
-    }
-
-    /**
-     *
-     */
-    private function resetFileParser(): void
-    {
-        $this->fileParser = null;
     }
 }

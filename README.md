@@ -26,7 +26,7 @@ $ composer require rkulik/config
 
 ## Usage
 
-### Initialize basic configuration
+### Instantiate basic configuration
 
 ``` php
 <?php
@@ -50,7 +50,18 @@ $config = $configFactory->make('config.php');
 echo $config->get('hello'); // world
 ```
 
-### Initialize configuration using custom parser
+### Instantiate configuration using custom parser
+
+For special requirements, such as working with unsupported types of configuration files, using a custom parser is the suggested way to go.
+
+``` php
+<?php
+// config.php
+
+return [
+    'hello' => 'world',
+];
+```
 
 ``` php
 <?php
@@ -86,7 +97,7 @@ require 'CustomParser.php';
 $configFactory = new \Rkulik\Config\ConfigFactory();
 $customParser = new CustomParser();
 
-$config = $configFactory->fileParser($customParser)->make('config.php');
+$config = $configFactory->make('config.php', $customParser);
 
 echo $config->get('hello'); // dlrow
 ```
