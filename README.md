@@ -102,6 +102,34 @@ $config = $configFactory->make('config.php', $customParser);
 echo $config->get('hello'); // dlrow
 ```
 
+### Using "dot" notation
+
+Use "dot" notation to perform CRUD operations on configuration data.
+
+``` php
+<?php
+// config.php
+
+return [
+    'hello' => [
+        'beautiful' => 'world',
+    ],
+];
+```
+
+``` php
+<?php
+// index.php
+
+require 'vendor/autoload.php';
+
+$configFactory = new \Rkulik\Config\ConfigFactory();
+
+$config = $configFactory->make('config.php');
+
+echo $config->get('hello.beautiful'); // world
+```
+
 ## Testing
 
 ``` bash
