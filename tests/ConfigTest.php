@@ -38,7 +38,7 @@ class ConfigTest extends BaseTestCase
         $this->config->set($key, 'Hello, data!');
         $this->assertArrayHasKey($key, $this->config->all());
 
-        // Set new multidimensional data
+        // Set multidimensional data
         $multidimensionalKey = 'multidimensional.key';
         $this->assertArrayNotHasKey('multidimensional', $this->config->all());
         $this->config->set($multidimensionalKey, 'Hello, multidimensional data!');
@@ -84,10 +84,10 @@ class ConfigTest extends BaseTestCase
         // Has multidimensional data
         $this->assertTrue($this->config->has('multi.dimensional.key'));
 
-        // Does not have non existing first level data
+        // Does not have first level data
         $this->assertFalse($this->config->has('nonExistingKey'));
 
-        // Does not have non existing multidimensional data
+        // Does not have multidimensional data
         $this->assertFalse($this->config->has('non.existing.key'));
     }
 
@@ -99,17 +99,17 @@ class ConfigTest extends BaseTestCase
         $data = $this->getData();
         $this->assertSame($data, $this->config->all());
 
-        // Unset first level key
+        // Unset first level data
         $this->config->unset('foo');
         unset($data['foo']);
         $this->assertSame($data, $this->config->all());
 
-        // Unset multidimensional key
+        // Unset multidimensional data
         $this->config->unset('multi.dimensional');
         unset($data['multi']['dimensional']);
         $this->assertSame($data, $this->config->all());
 
-        // Unset non existing multidimensional key
+        // Unset non existing multidimensional data
         $this->config->unset('multi.dimensional.non.existing.key');
         $this->assertSame($data, $this->config->all());
     }
