@@ -5,6 +5,8 @@ namespace Rkulik\Config\FileParser;
 /**
  * Interface FileParserInterface
  * @package Rkulik\Config\FileParser
+ *
+ * @author René Kulik <rene@kulik.io>
  */
 interface FileParserInterface
 {
