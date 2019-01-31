@@ -1,6 +1,6 @@
 {
   "name": "rkulik/config",
-  "description": "Simple configuration file loader",
+  "description": "Lightweight configuration file loader",
   "keywords": [
     "rkulik",
     "php",

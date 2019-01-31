@@ -1,6 +1,6 @@
 # config
 
-Simple configuration file loader. Currently supporting PHP and JSON files.
+Lightweight configuration file loader. Currently supporting PHP and JSON files.
 
 - [Requirements](#requirements)
 - [Install](#install)
