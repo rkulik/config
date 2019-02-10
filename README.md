@@ -18,7 +18,7 @@ This package requires PHP 7.1 or higher.
 
 ## Install
 
-Via composer
+Via composer:
 
 ``` bash
 $ composer require rkulik/config
